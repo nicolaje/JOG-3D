@@ -19,7 +19,7 @@ segway.unparent_wheels()
 
 #pose.configure_mw('socket')
 #pose.configure_service('socket')
-motion.add_service('socket')
+motion.configure_service('socket')
 
 env=Environment('indoors-1/indoor-1')
 env.place_camera([5, -5, 6])
