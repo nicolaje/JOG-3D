@@ -1,11 +1,9 @@
-#!/usr/bin/python
-
-from morse.builder.morsebuilder import *
+from morse.builder import *
 
 robot = Robot('my1robot.blend')
 
-motion = Actuator('v_omega')
-robot.append(motion)
-motion.add_stream('socket')
+k=Keyboard()
+k.properties(Speed=1.0)
+robot.append(k)
 
 env = Environment('indoors-1/indoor-1')

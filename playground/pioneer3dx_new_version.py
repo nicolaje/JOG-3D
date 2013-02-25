@@ -1,19 +1,19 @@
 from morse.builder import *
 
-pioneer = ATRV()#Pioneer3DX()
-#pioneer.unparent_wheels()
+atrv=ATRV()
+atrv.translate(x=-1, y=0.4)
 
-motion = MotionVW()
-pioneer.append(motion)
-motion.configure_service('socket')
+ir1=Infrared()
+ir1.properties(Visible_arc=True)
+ir1.translate(x=0, y=0, z=0.9)
+ir1.properties(resolution=5)
+ir1.properties(scan_window=90)
+ir1.properties(laser_range=5.0)
+atrv.append(ir1)
 
-pose = Pose()
-pose.translate(x=-0.2000, z=0.9000)
-pioneer.append(pose)
-
-Keyb = Keyboard()
-Keyb.properties(Speed=3.0)
-pioneer.append(Keyb)
+k=Keyboard()
+k.properties(Speed=3.0)
+atrv.append(k)
 
 env = Environment('indoors-1/indoor-1')
 env.place_camera([5, -5, 6])
