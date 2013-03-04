@@ -4,6 +4,7 @@ ir_update_freq=2;
 sonar_update_freq=2;
 compass_update_freq=2;
 odo_update_freq=2;
+pose_update_freq=2;
 
 odometer_x=0.08
 odometer_y=0.135
@@ -40,13 +41,18 @@ irBack=Infrared()
 irBack.frequency(ir_update_freq)
 
 sonarLeftLeft=Infrared()
+sonarLeftLeft.frequency(sonar_update_freq)
 sonarLeft=Infrared()
+sonarLeft.frequency(sonar_update_freq)
 sonarFront=Infrared()
+sonarFront.frequency(sonar_update_freq)
 sonarRight=Infrared()
+sonarRight.frequency(sonar_update_freq)
 sonarRightRight=Infrared()
+sonarRightRight.frequency(sonar_update_freq)
 
 pose=Pose()
-pose.frequency(2)
+pose.frequency(pose_update_freq)
 
 odometerLeft=Odometer()
 odometerLeft.frequency(odo_update_freq)
@@ -87,6 +93,10 @@ irBack.properties(Visible_arc=see_infrared_arcs)
 irBack.translate(x=infrared_back_x,z=infrared_z)
 irBack.rotate(z=-3.14)
 
+# Odometer sensors positioning
+odometerLeft.translate(x=odometer_x,y=odometer_y)
+odometerRight.translate(x=odometer_x,y=-odometer_y)
+
 # Configuring socket datastreams
 sonarLeftLeft.add_stream('socket')
 sonarLeft.add_stream('socket')
@@ -101,6 +111,9 @@ irBack.add_stream('socket')
 
 pose.add_stream('socket')
 
+odometerLeft.add_stream('socket')
+odometerRight.add_stream('socket')
+
 # Attaching sensors to the robot
 r.append(sonarLeftLeft)
 r.append(sonarLeft)
@@ -114,6 +127,9 @@ r.append(irRight)
 r.append(irBack)
 
 r.append(pose)
+
+r.append(odometerLeft)
+r.append(odometerRight)
 
 env = Environment('indoors-1/indoor-1')
 env.place_camera([5, -5, 6])
