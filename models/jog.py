@@ -54,9 +54,9 @@ sonarRightRight.frequency(sonar_update_freq)
 pose=Pose()
 pose.frequency(pose_update_freq)
 
-odometerLeft=Odometer()
+odometerLeft=Odometry()
 odometerLeft.frequency(odo_update_freq)
-odometerRight=Odometer()
+odometerRight=Odometry()
 odometerRight.frequency(odo_update_freq)
 
 # Sonar sensors positioning
@@ -94,8 +94,16 @@ irBack.translate(x=infrared_back_x,z=infrared_z)
 irBack.rotate(z=-3.14)
 
 # Odometer sensors positioning
+# using default level (integration) that
+# we will cut down into ticks on Java side
 odometerLeft.translate(x=odometer_x,y=odometer_y)
 odometerRight.translate(x=odometer_x,y=-odometer_y)
+odometerRight.level('integrated')
+odometerLeft.level('integrated')
+
+# Actuator
+actuator=MotionVW()
+actuator.translate(x=odometer_x)
 
 # Configuring socket datastreams
 sonarLeftLeft.add_stream('socket')
@@ -114,6 +122,8 @@ pose.add_stream('socket')
 odometerLeft.add_stream('socket')
 odometerRight.add_stream('socket')
 
+actuator.add_stream('socket')
+
 # Attaching sensors to the robot
 r.append(sonarLeftLeft)
 r.append(sonarLeft)
@@ -130,6 +140,8 @@ r.append(pose)
 
 r.append(odometerLeft)
 r.append(odometerRight)
+
+r.append(actuator)
 
 env = Environment('indoors-1/indoor-1')
 env.place_camera([5, -5, 6])
