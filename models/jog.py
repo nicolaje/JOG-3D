@@ -6,24 +6,27 @@ compass_update_freq=2;
 odo_update_freq=2;
 pose_update_freq=2;
 
-odometer_x=0.08
+odometer_x=0.1
 odometer_y=0.135
 
 see_sonar_arcs=True
 see_infrared_arcs=True
 
 front_side_sonar_theta=15*2*3.14/360
-sonar_z=0.09
+sonar_z=0.095
 front_side_side_sonar_x=0.08
 front_side_side_sonar_y=0.195
 
 front_side_sonar_x=0.082
 front_side_sonar_y=0.135
 
+sonar_range=3 # I presume
+
 infrared_z=0.09
 infrared_side_y=0.12
 infrared_side_x=-0.11
 infrared_back_x=-0.19
+infrared_range=0.3 # According to the datasheet
 
 r=Robot('JOG-C.Rieux.blend')
 k=Keyboard()
@@ -32,23 +35,32 @@ r.append(k)
 
 # Sensors initialization
 irLeft=Infrared()
+irLeft.properties(laser_range=infrared_range)
 irLeft.frequency(ir_update_freq)
 irFront=Infrared()
+irFront.properties(laser_range=infrared_range)
 irFront.frequency(ir_update_freq)
 irRight=Infrared()
+irRight.properties(laser_range=infrared_range)
 irRight.frequency(ir_update_freq)
 irBack=Infrared()
+irBack.properties(laser_range=infrared_range)
 irBack.frequency(ir_update_freq)
 
 sonarLeftLeft=Infrared()
+sonarLeftLeft.properties(laser_range=sonar_range)
 sonarLeftLeft.frequency(sonar_update_freq)
 sonarLeft=Infrared()
+sonarLeft.properties(laser_range=sonar_range)
 sonarLeft.frequency(sonar_update_freq)
 sonarFront=Infrared()
+sonarFront.properties(laser_range=sonar_range)
 sonarFront.frequency(sonar_update_freq)
 sonarRight=Infrared()
+sonarRight.properties(laser_range=sonar_range)
 sonarRight.frequency(sonar_update_freq)
 sonarRightRight=Infrared()
+sonarRightRight.properties(laser_range=sonar_range)
 sonarRightRight.frequency(sonar_update_freq)
 
 pose=Pose()
